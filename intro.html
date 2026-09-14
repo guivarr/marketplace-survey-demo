@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Task</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        .survey {
+            max-width: 720px;
+            margin: 80px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+        }
+
+        .progress {
+            color: #777;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 14px 30px;
+            background: #1f4e79;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="survey">
+
+    <div class="progress">
+        Marketplace Research Study
+    </div>
+
+    <h1>Shopping task</h1>
+
+    <p>
+        Imagine that you are currently looking
+        to purchase a new pair of wireless earbuds.
+    </p>
+
+    <p>
+        You will now enter a simulated online marketplace.
+    </p>
+
+    <p>
+        Please browse the marketplace exactly as you
+        normally would when shopping online.
+    </p>
+
+    <p>
+        There are no right or wrong answers.
+    </p>
+
+    <button onclick="startStudy()">
+        Start shopping
+    </button>
+
+</div>
+
+<script>
+
+if (
+    sessionStorage.getItem("demoAccess")
+    !== "true"
+) {
+    window.location.href = "index.html";
+}
+
+function startStudy() {
+
+    const participant =
+        "R-" +
+        Math.floor(
+            100000 + Math.random() * 900000
+        );
+
+    const data = {
+
+        respondentId: participant,
+
+        studyStart:
+            new Date().toISOString(),
+
+        searches: [],
+
+        clicks: [],
+
+        pageViews: [],
+
+        events: []
+
+    };
+
+    sessionStorage.setItem(
+        "researchData",
+        JSON.stringify(data)
+    );
+
+    window.location.href =
+        "shop.html";
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace Research Demo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            width: 360px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #1f4e79;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #error {
+            color: #b00020;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <h1>Research Demo</h1>
+
+    <p>
+        This prototype is intended for internal research testing.
+    </p>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Enter access code"
+    >
+
+    <button onclick="login()">
+        Enter demo
+    </button>
+
+    <div id="error"></div>
+
+</div>
+
+<script>
+
+function login() {
+
+    const password =
+        document.getElementById("password").value;
+
+    if (password === "DEMO2026") {
+
+        sessionStorage.setItem(
+            "demoAccess",
+            "true"
+        );
+
+        window.location.href =
+            "intro.html";
+
+    } else {
+
+        document.getElementById("error")
+            .textContent =
+            "Incorrect access code.";
+
+    }
+}
+
+</script>
+
+</body>
+</html>

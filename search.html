@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marketplace Search</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+        }
+
+        .topbar {
+            background: #131921;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            display: flex;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+        }
+
+        .search-wrapper button {
+            padding: 0 20px;
+            border: none;
+            background: #febd69;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 70px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+        }
+
+        .task-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 17px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topbar">
+
+        <div class="logo">
+            MarketDemo
+        </div>
+
+        <div class="search-wrapper">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search products..."
+                autocomplete="off"
+            >
+
+            <button id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+    <main class="content">
+
+        <div class="task-label">
+            Shopping task
+        </div>
+
+        <h1>
+            Start your search
+        </h1>
+
+        <p>
+            Imagine that you have arrived on an online marketplace
+            and you are looking to buy a cordless vacuum cleaner.
+        </p>
+
+        <p>
+            Please use the search bar above exactly as you normally would
+            when shopping online.
+        </p>
+
+    </main>
+
+    <script>
+
+        if (
+            sessionStorage.getItem("demoAccess") !== "true"
+        ) {
+            window.location.href = "index.html";
+        }
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const searchBtn =
+            document.getElementById("searchBtn");
+
+        function submitSearch() {
+
+            const query =
+                searchInput.value.trim();
+
+            if (!query) {
+                return;
+            }
+
+            const data =
+                JSON.parse(
+                    sessionStorage.getItem("researchData")
+                ) || {};
+
+            if (!data.searches) {
+                data.searches = [];
+            }
+
+            data.searches.push({
+                query: query,
+                timestamp: new Date().toISOString()
+            });
+
+            if (!data.events) {
+                data.events = [];
+            }
+
+            data.events.push({
+                type: "search_submitted",
+                value: query,
+                page: "search.html",
+                timestamp: new Date().toISOString()
+            });
+
+            sessionStorage.setItem(
+                "researchData",
+                JSON.stringify(data)
+            );
+
+            sessionStorage.setItem(
+                "latestSearch",
+                query
+            );
+
+            window.location.href =
+                "results.html";
+        }
+
+        searchBtn.addEventListener(
+            "click",
+            submitSearch
+        );
+
+        searchInput.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+                    submitSearch();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

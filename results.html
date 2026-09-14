@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Results</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            color: #111;
+        }
+
+        .topbar {
+            background: #131921;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            display: flex;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 6px 0 0 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .search-wrapper button {
+            padding: 0 22px;
+            border: none;
+            background: #febd69;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-wrapper button:hover {
+            background: #f3a847;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px 40px;
+        }
+
+        .result-summary {
+            margin-bottom: 25px;
+        }
+
+        .result-summary h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .result-summary p {
+            margin: 0;
+            color: #555;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 220px 1fr 180px;
+            gap: 24px;
+            cursor: pointer;
+            transition: box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            text-align: center;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .sponsored {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .product-title {
+            font-size: 20px;
+            line-height: 1.35;
+            margin: 0 0 10px;
+            font-weight: 600;
+        }
+
+        .rating-row {
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .stars {
+            color: #f0a000;
+            font-weight: bold;
+        }
+
+        .review-count {
+            color: #007185;
+        }
+
+        .description {
+            color: #444;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 12px;
+            background: #e47911;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .price-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .price {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .delivery {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 850px) {
+            .product-card {
+                grid-template-columns: 160px 1fr;
+            }
+
+            .price-box {
+                grid-column: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .product-card {
+                grid-template-columns: 1fr;
+            }
+
+            .price-box {
+                grid-column: auto;
+            }
+
+            .image-placeholder {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topbar">
+
+        <div class="logo">
+            MarketDemo
+        </div>
+
+        <div class="search-wrapper">
+
+            <input
+                id="searchInputResults"
+                type="text"
+                autocomplete="off"
+            >
+
+            <button id="searchBtnResults">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+    <main class="page">
+
+        <section class="result-summary">
+
+            <h1 id="resultsTitle">
+                Search results
+            </h1>
+
+            <p>
+                Browse the results exactly as you normally would.
+            </p>
+
+        </section>
+
+        <section class="product-list">
+
+            <div
+                class="product-card"
+                data-product="airnova-x8"
+                data-position="1"
+                data-target="product-a.html"
+            >
+
+                <div class="image-placeholder">
+                    AirNova X8
+                    <br>
+                    Product image
+                </div>
+
+                <div>
+
+                    <div class="sponsored">
+                        Sponsored
+                    </div>
+
+                    <h2 class="product-title">
+                        AirNova X8 Cordless Vacuum Cleaner,
+                        Powerful Suction, 40-Minute Battery,
+                        Lightweight Stick Vacuum
+                    </h2>
+
+                    <div class="rating-row">
+                        <span class="stars">★★★★☆</span>
+                        4.6
+                        <span class="review-count">
+                            2,314 reviews
+                        </span>
+                    </div>
+
+                    <div class="description">
+                        Lightweight cordless vacuum with powerful suction,
+                        removable battery and multi-surface cleaning head.
+                    </div>
+
+                    <div class="badge">
+                        Popular choice
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price">
+                        €249.99
+                    </div>
+
+                    <div class="delivery">
+                        Free delivery
+                        <br>
+                        Tomorrow
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="product-card"
+                data-product="cleanpro-flex12"
+                data-position="2"
+                data-target="product-b.html"
+            >
+
+                <div class="image-placeholder">
+                    CleanPro Flex 12
+                    <br>
+                    Product image
+                </div>
+
+                <div>
+
+                    <h2 class="product-title">
+                        CleanPro Flex 12 Cordless Vacuum,
+                        Flexible Cleaning Tube,
+                        45-Minute Runtime
+                    </h2>
+
+                    <div class="rating-row">
+                        <span class="stars">★★★★☆</span>
+                        4.4
+                        <span class="review-count">
+                            864 reviews
+                        </span>
+                    </div>
+
+                    <div class="description">
+                        Flexible cordless cleaner designed for hard floors,
+                        carpets and cleaning underneath furniture.
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price">
+                        €189.99
+                    </div>
+
+                    <div class="delivery">
+                        Free delivery
+                        <br>
+                        Wednesday
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="product-card"
+                data-product="vortex-one"
+                data-position="3"
+                data-target="product-c.html"
+            >
+
+                <div class="image-placeholder">
+                    Vortex One
+                    <br>
+                    Product image
+                </div>
+
+                <div>
+
+                    <h2 class="product-title">
+                        Vortex One Premium Cordless Vacuum,
+                        60-Minute Battery,
+                        High-Power Motor
+                    </h2>
+
+                    <div class="rating-row">
+                        <span class="stars">★★★★★</span>
+                        4.7
+                        <span class="review-count">
+                            4,871 reviews
+                        </span>
+                    </div>
+
+                    <div class="description">
+                        Premium cordless cleaning with extended battery life,
+                        digital display and enhanced filtration system.
+                    </div>
+
+                    <div class="badge">
+                        Best seller
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price">
+                        €299.99
+                    </div>
+
+                    <div class="delivery">
+                        Free delivery
+                        <br>
+                        Tomorrow
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="product-card"
+                data-product="homeflow-lite"
+                data-position="4"
+                data-target="product-d.html"
+            >
+
+                <div class="image-placeholder">
+                    HomeFlow Lite
+                    <br>
+                    Product image
+                </div>
+
+                <div>
+
+                    <h2 class="product-title">
+                        HomeFlow Lite Cordless Stick Vacuum,
+                        Compact Design,
+                        35-Minute Runtime
+                    </h2>
+
+                    <div class="rating-row">
+                        <span class="stars">★★★★☆</span>
+                        4.2
+                        <span class="review-count">
+                            421 reviews
+                        </span>
+                    </div>
+
+                    <div class="description">
+                        Affordable lightweight option for everyday cleaning,
+                        apartments and smaller homes.
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price">
+                        €139.99
+                    </div>
+
+                    <div class="delivery">
+                        Delivery Thursday
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="product-card"
+                data-product="purevac-max"
+                data-position="5"
+                data-target="product-e.html"
+            >
+
+                <div class="image-placeholder">
+                    PureVac Max
+                    <br>
+                    Product image
+                </div>
+
+                <div>
+
+                    <h2 class="product-title">
+                        PureVac Max Cordless Vacuum Cleaner,
+                        Pet Hair Tool,
+                        50-Minute Battery
+                    </h2>
+
+                    <div class="rating-row">
+                        <span class="stars">★★★★☆</span>
+                        4.5
+                        <span class="review-count">
+                            1,621 reviews
+                        </span>
+                    </div>
+
+                    <div class="description">
+                        Cordless vacuum designed for homes with pets,
+                        including motorised pet-hair attachment.
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price">
+                        €219.99
+                    </div>
+
+                    <div class="delivery">
+                        Free delivery
+                        <br>
+                        Tomorrow
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="product-card"
+                data-product="swiftclean-s9"
+                data-position="6"
+                data-target="product-f.html"
+            >
+
+                <div class="image-placeholder">
+                    SwiftClean S9
+                    <br>
+                    Product image
+                </div>
+
+                <div>
+
+                    <h2 class="product-title">
+                        SwiftClean S9 Cordless Vacuum,
+                        Lightweight Multi-Surface Cleaner,
+                        45-Minute Battery
+                    </h2>
+
+                    <div class="rating-row">
+                        <span class="stars">★★★★☆</span>
+                        4.3
+                        <span class="review-count">
+                            975 reviews
+                        </span>
+                    </div>
+
+                    <div class="description">
+                        Lightweight cordless cleaner with multiple accessories,
+                        wall mount and washable filter.
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price">
+                        €169.99
+                    </div>
+
+                    <div class="delivery">
+                        Free delivery
+                        <br>
+                        Wednesday
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        if (
+            sessionStorage.getItem("demoAccess") !== "true"
+        ) {
+            window.location.href = "index.html";
+        }
+
+        const currentQuery =
+            sessionStorage.getItem("latestSearch") || "";
+
+        const searchInput =
+            document.getElementById("searchInputResults");
+
+        const searchBtn =
+            document.getElementById("searchBtnResults");
+
+        const resultsTitle =
+            document.getElementById("resultsTitle");
+
+        searchInput.value =
+            currentQuery;
+
+        if (currentQuery) {
+            resultsTitle.textContent =
+                'Results for "' + currentQuery + '"';
+        }
+
+        const pageOpenedAt =
+            Date.now();
+
+        function loadResearchData() {
+            return JSON.parse(
+                sessionStorage.getItem("researchData")
+            ) || {};
+        }
+
+        function saveResearchData(data) {
+            sessionStorage.setItem(
+                "researchData",
+                JSON.stringify(data)
+            );
+        }
+
+        function trackEvent(type, details = {}) {
+
+            const data =
+                loadResearchData();
+
+            if (!data.events) {
+                data.events = [];
+            }
+
+            data.events.push({
+                type: type,
+                page: "results.html",
+                timestamp: new Date().toISOString(),
+                ...details
+            });
+
+            saveResearchData(data);
+        }
+
+        trackEvent(
+            "results_page_viewed",
+            {
+                query: currentQuery
+            }
+        );
+
+        document
+            .querySelectorAll(".product-card")
+            .forEach(card => {
+
+                card.addEventListener(
+                    "click",
+                    function() {
+
+                        const product =
+                            card.dataset.product;
+
+                        const position =
+                            Number(card.dataset.position);
+
+                        const target =
+                            card.dataset.target;
+
+                        const timeOnResults =
+                            Date.now() - pageOpenedAt;
+
+                        trackEvent(
+                            "product_clicked",
+                            {
+                                product: product,
+                                position: position,
+                                query: currentQuery,
+                                timeOnResultsMs: timeOnResults
+                            }
+                        );
+
+                        window.location.href =
+                            target;
+                    }
+                );
+            });
+
+        function submitNewSearch() {
+
+            const query =
+                searchInput.value.trim();
+
+            if (!query) {
+                return;
+            }
+
+            const data =
+                loadResearchData();
+
+            if (!data.searches) {
+                data.searches = [];
+            }
+
+            if (!data.events) {
+                data.events = [];
+            }
+
+            data.searches.push({
+                query: query,
+                timestamp: new Date().toISOString(),
+                source: "results_page"
+            });
+
+            data.events.push({
+                type: "search_refined",
+                value: query,
+                previousValue: currentQuery,
+                page: "results.html",
+                timestamp: new Date().toISOString()
+            });
+
+            saveResearchData(data);
+
+            sessionStorage.setItem(
+                "latestSearch",
+                query
+            );
+
+            window.location.reload();
+        }
+
+        searchBtn.addEventListener(
+            "click",
+            submitNewSearch
+        );
+
+        searchInput.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    submitNewSearch();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

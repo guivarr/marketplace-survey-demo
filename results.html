@@ -206,6 +206,24 @@
                 height: 220px;
             }
         }
+
+        .basket-btn {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 20px;
+    background: #ffd814;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.basket-btn:hover {
+    background: #f7ca00;
+}
+
+.basket-btn.added {
+    background: #d5f5d5;
+}
     </style>
 </head>
 
@@ -295,15 +313,24 @@
 
                 <div class="price-box">
 
-                    <div class="price">
-                        €249.99
-                    </div>
+    <div class="price">
+        €249.99
+    </div>
 
-                    <div class="delivery">
-                        Free delivery
-                        <br>
-                        Tomorrow
-                    </div>
+    <div class="delivery">
+        Free delivery
+        <br>
+        Tomorrow
+    </div>
+
+    <button
+        class="basket-btn"
+        data-product="airnova-x8"
+    >
+        Add to basket
+    </button>
+
+</div>
 
                 </div>
 
@@ -741,6 +768,58 @@
 
             }
         );
+
+        document
+    .querySelectorAll(".basket-btn")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function(event) {
+
+                // Prevent the product card itself
+                // from opening when clicking the basket button.
+                event.stopPropagation();
+
+                const product =
+                    button.dataset.product;
+
+                const data =
+                    loadResearchData();
+
+                if (!data.basket) {
+                    data.basket = [];
+                }
+
+                if (!data.events) {
+                    data.events = [];
+                }
+
+                // Avoid adding the same product twice.
+                if (!data.basket.includes(product)) {
+
+                    data.basket.push(product);
+
+                    data.events.push({
+                        type: "add_to_basket",
+                        product: product,
+                        source: "results_page",
+                        query: currentQuery,
+                        timestamp: new Date().toISOString()
+                    });
+
+                    saveResearchData(data);
+
+                    button.textContent =
+                        "Added to basket";
+
+                    button.classList.add(
+                        "added"
+                    );
+                }
+            }
+        );
+    });
 
     </script>
 
